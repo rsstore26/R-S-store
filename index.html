@@ -169,9 +169,9 @@
                 <h3>Tawjihi Elite</h3>
                 <p>120 ILS</p>
             </div>
-            <div class="product-card" onclick="openProduct('Class of ', 85, 'class ')">
-                <img src="class black.png">
-                <h3>Class of </h3>
+            <div class="product-card" onclick="openProduct('Class of', 85, 'class of')">
+                <img src="class of black.png">
+                <h3>Class of</h3>
                 <p>85 ILS</p>
             </div>
         </div>
@@ -232,10 +232,9 @@
             document.getElementById('modalPrice').innerText = price + " ILS";
             
             const colorContainer = document.getElementById('dynamicColors');
-            colorContainer.innerHTML = ''; // تفريغ الألوان القديمة
+            colorContainer.innerHTML = ''; 
 
             if (name === 'Tawjihi Elite') {
-                // ألوان التوجيهي إيليت فقط
                 const colors = ['black', 'red', 'blue'];
                 colors.forEach(color => {
                     const dot = document.createElement('div');
@@ -243,8 +242,15 @@
                     dot.onclick = function() { changeColor(this, color); };
                     colorContainer.appendChild(dot);
                 });
+            } else if (name === 'Class of') {
+                const colors = ['black', 'white'];
+                colors.forEach(color => {
+                    const dot = document.createElement('div');
+                    dot.className = `color-dot dot-${color} ${color === 'black' ? 'active' : ''}`;
+                    dot.onclick = function() { changeColor(this, color); };
+                    colorContainer.appendChild(dot);
+                });
             } else {
-                // ألوان باقي المنتجات
                 const colors = ['black', 'white', 'burgundy', 'grey'];
                 colors.forEach(color => {
                     const dot = document.createElement('div');
