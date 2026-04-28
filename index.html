@@ -59,6 +59,14 @@
         .product-card:hover { transform: translateY(-5px); background: #f0f0f2; }
         .product-card img { width: 100%; border-radius: 20px; margin-bottom: 15px; }
 
+        /* --- Footer --- */
+        footer { padding: 60px 20px; background: #f5f5f7; border-top: 0.5px solid rgba(0,0,0,0.1); text-align: center; }
+        .footer-content { max-width: 1100px; margin: 0 auto; }
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-top: 20px; }
+        .social-links a { text-decoration: none; color: var(--apple-text); font-size: 14px; font-weight: 500; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+        .social-links a:hover { color: var(--apple-blue); }
+        .copyright { margin-top: 30px; font-size: 12px; opacity: 0.4; }
+
         /* --- Modal --- */
         .modal { 
             display: none; position: fixed; z-index: 3000; left: 0; top: 0; 
@@ -176,6 +184,18 @@
             </div>
         </div>
     </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="logo" style="margin-bottom: 20px;">RS</div>
+            <p style="font-size: 14px; opacity: 0.6;">Follow us for latest drops and updates.</p>
+            <div class="social-links">
+                <a href="https://instagram.com/rs.store.26" target="_blank">Instagram</a>
+                <a href="https://facebook.com/rss.store.26" target="_blank">Facebook</a>
+            </div>
+            <p class="copyright">© 2026 RS Clothing. All rights reserved.</p>
+        </div>
+    </footer>
 
     <div id="productModal" class="modal">
         <span class="close-modal" onclick="closeProduct()">&times;</span>
