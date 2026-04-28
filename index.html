@@ -78,6 +78,8 @@
         .dot-white { background: #fff; }
         .dot-grey { background: #8e8e93; }
         .dot-burgundy { background: #800020; }
+        .dot-red { background: #bf202e; }
+        .dot-blue { background: #0071e3; }
 
         .buy-btn { background: var(--apple-blue); color: #fff; border: none; padding: 20px; border-radius: 16px; width: 100%; font-size: 17px; cursor: pointer; font-weight: 500; }
         .size-select { background: var(--apple-gray); border: none; padding: 15px; border-radius: 12px; margin-bottom: 15px; width: 100%; outline: none; }
@@ -162,10 +164,10 @@
             <h2>Tawjihi Collection</h2>
         </div>
         <div class="products-grid">
-            <div class="product-card" onclick="openProduct('Tawjihi Elite', 85, 'tawjihi elite')">
+            <div class="product-card" onclick="openProduct('Tawjihi Elite', 120, 'tawjihi elite')">
                 <img src="tawjihi elite black.png">
                 <h3>Tawjihi Elite</h3>
-                <p>85 ILS</p>
+                <p>120 ILS</p>
             </div>
             <div class="product-card" onclick="openProduct('Class of ', 85, 'class ')">
                 <img src="class black.png">
@@ -188,12 +190,7 @@
                 
                 <div class="color-box">
                     <span style="font-size: 12px; font-weight: 600; letter-spacing: 1px;">SELECT COLOR</span>
-                    <div class="color-options">
-                        <div class="color-dot dot-black active" onclick="changeColor(this, 'black')"></div>
-                        <div class="color-dot dot-white" onclick="changeColor(this, 'white')"></div>
-                        <div class="color-dot dot-grey" onclick="changeColor(this, 'gray')"></div>
-                        <div class="color-dot dot-burgundy" onclick="changeColor(this, 'burgundy')"></div>
-                    </div>
+                    <div class="color-options" id="dynamicColors"></div>
                 </div>
 
                 <select class="size-select" id="modalSize">
@@ -211,7 +208,6 @@
         <a class="back-store-btn" onclick="toggleCart()">
             <span style="font-size: 18px; margin-right: 5px;">‹</span> Back to Store
         </a>
-        
         <h2 style="margin-bottom:30px; font-size: 28px;">Your Bag.</h2>
         <div id="cart-items" style="flex-grow:1; overflow-y:auto;"></div>
         <div style="border-top:1px solid #eee; padding-top:20px;">
@@ -235,9 +231,29 @@
             document.getElementById('modalTitle').innerText = name;
             document.getElementById('modalPrice').innerText = price + " ILS";
             
-            document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
-            document.querySelector('.dot-black').classList.add('active');
-            
+            const colorContainer = document.getElementById('dynamicColors');
+            colorContainer.innerHTML = ''; // تفريغ الألوان القديمة
+
+            if (name === 'Tawjihi Elite') {
+                // ألوان التوجيهي إيليت فقط
+                const colors = ['black', 'red', 'blue'];
+                colors.forEach(color => {
+                    const dot = document.createElement('div');
+                    dot.className = `color-dot dot-${color} ${color === 'black' ? 'active' : ''}`;
+                    dot.onclick = function() { changeColor(this, color); };
+                    colorContainer.appendChild(dot);
+                });
+            } else {
+                // ألوان باقي المنتجات
+                const colors = ['black', 'white', 'burgundy', 'grey'];
+                colors.forEach(color => {
+                    const dot = document.createElement('div');
+                    dot.className = `color-dot dot-${color} ${color === 'black' ? 'active' : ''}`;
+                    dot.onclick = function() { changeColor(this, color); };
+                    colorContainer.appendChild(dot);
+                });
+            }
+
             updateImages();
             document.getElementById('addBtn').onclick = function() {
                 cart.push({ name, price, size: document.getElementById('modalSize').value, color: selectedColor });
@@ -260,16 +276,11 @@
             f.style.opacity = "0.5"; b.style.opacity = "0.5";
             
             let colorName = selectedColor;
-            
             let backBase = currentBase;
-            if(currentBase === 'paplo escobar') {
-                backBase = 'paplo escobar';
-            }
 
             setTimeout(() => {
                 f.src = `${currentBase} ${colorName}.png`;
                 b.src = `${backBase} back ${colorName}.png`; 
-                
                 f.style.opacity = "1"; b.style.opacity = "1";
             }, 150);
         }
